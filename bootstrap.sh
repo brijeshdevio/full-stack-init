@@ -76,19 +76,25 @@ else
 #    pnpm dlx shadcn@latest init --preset b0 --base aria --template start --pointer
 #    npx @tanstack/cli@latest create
     pnpm dlx shadcn@latest init --preset b0 --template vite --pointer --name web
+    cd web
+    touch .env .env.example
+    rm README.md
     success "Web application created."
 fi
 
 # ==========================================================
 # API
 # ==========================================================
-
+cd ..
 if [[ -f "api/package.json" && -f "api/nest-cli.json" ]]; then
     success "apps/api already exists. Skipping."
 else
     log "Creating NestJS application..."
 
     nest new api --skip-git --package-manager pnpm
+    cd api
+    touch .env .env.example
+    rm README.md
     success "API application created."
 fi
 
@@ -133,6 +139,11 @@ cd "$ROOT_DIR"
 pnpm install
 
 success "Dependencies installed."
+
+cat > "$ROOT_DIR/.gitignore" <<'EOF'
+node_modules
+.env
+EOF
 
 # Initialize Git
 log "Initializing git..."
