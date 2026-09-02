@@ -75,7 +75,7 @@ else
 #    pnpm dlx shadcn@latest init --preset b0 --base radix --template start --pointer web
 #    pnpm dlx shadcn@latest init --preset b0 --base aria --template start --pointer
 #    npx @tanstack/cli@latest create
-    pnpm dlx shadcn@latest init --preset b0 --template vite --pointer
+    pnpm dlx shadcn@latest init --preset b0 --template vite --pointer --name web
     success "Web application created."
 fi
 
@@ -88,7 +88,7 @@ if [[ -f "api/package.json" && -f "api/nest-cli.json" ]]; then
 else
     log "Creating NestJS application..."
 
-    nest new api -g
+    nest new api --skip-git --package-manager pnpm
     success "API application created."
 fi
 
